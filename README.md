@@ -1,3 +1,3 @@
-# AI WEb Application Programming (WAP) Project
+# AI Web Application Programming (WAP) Project
 
-Building Next-Generation Web Apps
+Building Next-Generation Web Apps Powered by LLM/AI
