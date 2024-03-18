@@ -1,0 +1,19 @@
+{
+  "name": "wave-back-end",
+  "version": "1.0.0",
+  "description": "LLM application using NodeJS for Chef Assistant",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Geoffrey Duncan Opiyo, Reza un Nabi and Brian Mugalu",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.29.1"
+  }
+}
