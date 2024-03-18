@@ -6,12 +6,15 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #2f2f2f;
   justify-content: space-around;
+  background-image: url('./background-img.jpg');
+  background-size: cover;
+    background-position: center;
 }
 
 .container {
@@ -63,7 +66,7 @@ body {
 
 .menu li a:hover {
   border-color: #af0202;
-  background: rgb(5, 148, 237);
+  background: rgb(5, 214, 241);
   /* Change border color of the <a> element on hover */
 }
 
