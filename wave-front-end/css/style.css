@@ -24,8 +24,8 @@ body {
 }
 
 .toggle {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   background: #fff;
   border-radius: 50%;
   color: #222;
@@ -89,6 +89,10 @@ li {
 
 a {
   text-decoration: none;
+}
+
+.span--start {
+  color: #ff3838;
 }
 
 .wave {
