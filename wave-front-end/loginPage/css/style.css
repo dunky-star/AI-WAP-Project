@@ -9,7 +9,7 @@
 body{
     height: 1000vh;
     width:100%;
-    
+    background: black;
 }
 
 .header{
@@ -18,7 +18,7 @@ body{
     left: 0;
     width: 100%;
     padding: 25px 13%;
-    background: red;
+    background: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,10 +91,70 @@ body{
 
 .container{
     position: absolute;
-    left:50%;
     top:50%;
-    transform: translate(-50%,-30%);
+    left:50%;
+    transform: translate(-50%,-40%);
+    border-radius: 10px;
+    margin-top: 20px;
     width: 75%;
     height: 550px;
-    margin-top: 20px;
+    background: url('./background-img.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
 }
+
+.container .content{
+    position: absolute;
+    top: 0;
+    left:0;
+    width:58%;
+    height: 100%;
+    background: transparent;
+    padding: 80px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.content .logo {
+    font-size: 30px;
+}
+
+.text-sci h2 {
+    font-size: 40px;
+    line-height: 1;
+}
+
+.text-sci h2 span{
+    font-size: 25px;
+}
+
+.text-sci p{
+    font-size: 16px;
+    margin: 20px 0;
+}
+
+.social-icons a i{
+    font-size: 22px;
+    color: #fff;
+    margin-right: 10px;
+    transition: .5s ease;
+    display: inline-block;
+
+}
+
+.social-icons a:hover i{
+    transform: scale(1.4);
+}
+
+.container .logreg-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 58%);
+    height: 100%;
+}
+
+
+/*https: //www.youtube.com/watch?v=KL4--AJrJHQ&t=26s*/
