@@ -26,7 +26,9 @@
       </form>
     </header>
     <!-- End of NavBar Creation-->
-    <!-- Login Form Creation-->
+
+    <div class="background"></div>
+    <!-- Login and Registration -->
     <div class="container">
       <div class="content">
         <h2 class="logo"><i class="bi bi-robot"></i>Wave Food Chef</h2>
@@ -42,13 +44,75 @@
             <a href="#"><i class="bi bi-linkedin"></i></a>
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
             <a href="#"><i class="bi bi-twitter"></i></a>
           </div>
         </div>
       </div>
-      <div class="logreg-box"></div>
+      <div class="logreg-box">
+        <div class="form-box login">
+          <form action="#">
+            <h2>Sign In</h2>
+            <div class="input-box">
+              <span class="icon"><i class="bi bi-envelope-fill"></i></span>
+              <input type="email" name="" id="" required />
+              <label>Email</label>
+            </div>
+
+            <div class="input-box">
+              <span class="icon"><i class="bi bi-lock-fill"></i></span>
+              <input type="password" name="" id="" required />
+              <label>Password</label>
+
+              <div class="remember-forgot">
+                <label
+                  ><input type="checkbox" name="" id="" />Remember me
+                </label>
+                <a href="#">Forgot password?</a>
+              </div>
+              <button type="submit" class="btn">Sign In</button>
+
+              <div class="login-register">
+                <p>Don't have an account? <a href="#">Sign up</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-box register">
+          <form action="#">
+            <h2>Sign Up</h2>
+            <div class="input-box">
+              <span class="icon"><i class="bi bi-person-fill"></i></span>
+              <input type="text" name="" id="" required />
+              <label>Name</label>
+            </div>
+            <div class="input-box">
+              <span class="icon"><i class="bi bi-envelope-fill"></i></span>
+              <input type="email" name="" id="" required />
+              <label>Email</label>
+            </div>
+
+            <div class="input-box">
+              <span class="icon"><i class="bi bi-lock-fill"></i></span>
+              <input type="password" name="" id="" required />
+              <label>Password</label>
+
+              <div class="remember-forgot">
+                <label
+                  ><input type="checkbox" name="" id="" />I agree to the terms &
+                  conditions
+                </label>
+              </div>
+              <button type="submit" class="btn">Sign Up</button>
+              <div class="login-link">
+                <p>Already have an account? <a href="#">Sign in</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
     <!-- End of Login Form Creation-->
+    <script src="script.js"></script>
   </body>
 </html>
