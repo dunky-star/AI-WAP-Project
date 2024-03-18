@@ -1,15 +1,25 @@
 const express = require('express');
-
-const { generateChatCompletion } = require('./controllers/chatController');
-
-// app setup
 const app = express();
+const chatRoutes = require('./routes/chatroute');
+
+// Setting static folder for handling static resources.
+app.use(express.static('public'));
 
 // middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// routes
-app.post('/cookchef/v1/chatting', generateChatCompletion);
+// Routes import
+app.use(chatRoutes);
+
+app.use((req, res, next) => {
+  res.status(404).send('Oop! the resource not found');
+});
+
+app.use((err, req, res, next) => {
+  console.log(err.toString());
+  res.status(500).send('Oops! Something went wrong');
+});
 
 app.listen(3000, () =>
   console.log('Server started and listening to requests on port 3000')
