@@ -58,6 +58,13 @@ body {
   height: 100%;
   pointer-events: none;
   transform: rotate(calc(360deg / 6 * var(--i)));
+  border: 1px solid transparent;
+}
+
+.menu li a:hover {
+  border-color: #af0202;
+  background: rgb(5, 148, 237);
+  /* Change border color of the <a> element on hover */
 }
 
 .menu li a {
@@ -76,6 +83,7 @@ body {
   transform: translate(-50%, -50%);
   pointer-events: visible;
   transition: 0.3s;
+  border: 3px solid pink;
 }
 
 .container.active .menu li a {
