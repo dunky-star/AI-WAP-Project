@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.log(err.toString());
-  res.status(500).send('Oops! Something went wrong');
+  res.status(500).send('Oops! An error occurred');
 });
 
 app.listen(3000, () =>
