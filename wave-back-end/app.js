@@ -1,8 +1,10 @@
 const express = require('express');
+require('dotenv').config();
 const app = express();
 const cors = require('cors');
 const cookChefRoutes = require('./routes/cookChefRoute');
 const userRoutes = require('./routes/userRouter');
+const { connect } = require('./db/db');
 
 // Setting static folder for handling static resources.
 app.use(express.static('public'));
@@ -27,6 +29,14 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Oops! An error occurred' });
 });
 
-app.listen(3000, () =>
-  console.log('Server started and listening to requests on port 3000')
-);
+connect()
+  .then(
+    app.listen(process.env.port, () =>
+      console.log(
+        `Server started and listening to requests on port ${process.env.port}`
+      )
+    )
+  )
+  .catch(err => {
+    console.log(err);
+  });
