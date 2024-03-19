@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Question</title>
+    <link rel="stylesheet" href="./css/faqsstyle.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <p>How to use Cook Chef Assistant</p>
+      <h1>Frequently Asked Question</h1>
+      <!---------------------One---------------------->
+      <div class="faq">
+        <button class="accordion">
+          How does the Chef Assistant Work?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            The Food App utilizes advanced AI algorithms to recommend meals
+            based on the type of food you have and the energy content you want
+            to gain. Simply input your preferences, and the app will suggest
+            delicious and nutritious options for breakfast, lunch, and dinner.
+          </p>
+        </div>
+      </div>
+
+      <!---------------------Two---------------------->
+      <div class="faq">
+        <button class="accordion">
+          Can I customize my meal preferences in the Food App?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Absolutely! You can customize your meal preferences by specifying
+            the type of food you have available and the amount of energy content
+            you wish to consume. This ensures that the recommended meals align
+            perfectly with your dietary needs and preferences.
+          </p>
+        </div>
+      </div>
+
+      <!---------------------Three---------------------->
+      <div class="faq">
+        <button class="accordion">
+          Are the meal recommendations suitable for specific dietary
+          restrictions, such as vegetarian or gluten-free diets?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, the Food App takes into account various dietary restrictions
+            and preferences. You can specify dietary requirements such as
+            vegetarian, gluten-free, or any other restrictions, and the app will
+            tailor its recommendations accordingly.
+          </p>
+        </div>
+      </div>
+
+      <!---------------------Four---------------------->
+      <div class="faq">
+        <button class="accordion">
+          How accurate are the meal recommendations provided by the Food App?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            The meal recommendations are based on a combination of nutritional
+            data, food availability, and user preferences. While the app strives
+            to provide accurate and relevant recommendations, individual
+            preferences and tastes may vary.
+          </p>
+        </div>
+      </div>
+
+      <!---------------------Five---------------------->
+      <div class="faq">
+        <button class="accordion">
+          Can I save my favorite meal recommendations for future reference?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, you can save your favorite meal recommendations within the app.
+            This feature allows you to easily access and revisit your preferred
+            meal options whenever you like, making meal planning even more
+            convenient.
+          </p>
+        </div>
+      </div>
+
+      <!---------------------Six---------------------->
+      <div class="faq">
+        <button class="accordion">
+          Is the Food App available on multiple platforms?
+          <i class="bx bxs-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, the Food App is available on various platforms, including iOS,
+            Android, and web browsers. You can access the app from your
+            smartphone, tablet, or computer, ensuring seamless integration into
+            your daily routine.
+          </p>
+        </div>
+      </div>
+      <!---------------------End of FAQ Items---------------------->
+    </div>
+    <script>
+      {
+        let acc = document.getElementsByClassName('accordion');
+        var i;
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener('click', function () {
+            this.classList.toggle('active');
+            this.parentElement.classList.toggle('active');
+
+            var pannel = this.nextElementSibling;
+
+            if (pannel.style.display === 'block') {
+              pannel.style.display = 'none';
+            } else {
+              pannel.style.display = 'block';
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
