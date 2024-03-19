@@ -58,3 +58,6 @@ perceptron.py
 
 # dependencies
 /node_modules
+
+# Env
+.env
