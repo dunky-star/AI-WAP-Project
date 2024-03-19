@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookChefRoutes = require('./routes/cookChefRoute');
+const userRoutes = require('./routes/userRouter');
 
 // Setting static folder for handling static resources.
 app.use(express.static('public'));
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // Routes import
+app.use(userRoutes);
 app.use(cookChefRoutes);
 
 app.use((req, res, next) => {

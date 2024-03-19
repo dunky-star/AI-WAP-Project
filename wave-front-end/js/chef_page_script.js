@@ -118,7 +118,6 @@ document
 
 // Clear button functionality
 document.getElementById('clearButton').addEventListener('click', function () {
-  document.getElementById('ingredientsInput').value =
-    'broccoli, chicken, fish, vegetables, cabbage, eggs, olive oil';
-  document.getElementById('kcalInput').value = '2000';
+  document.getElementById('ingredientsInput').value = '';
+  document.getElementById('kcalInput').value = '';
 });
