@@ -7,16 +7,75 @@
     <title>Cook Food Chef</title>
   </head>
   <body>
-    <div class="wave">
-      <h2>COOK</h2>
-      <h2>FOOD</h2>
-    </div>
-
-    <div class="container">
-      <div class="toggle">
-        <ion-icon name="add-outline"></ion-icon>
-        <span class="span--start"></span>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        height: 75%;
+        backdrop-filter: blur(20px);
+        padding: 0 5%;
+        justify-content: center;
+      "
+    >
+      <div class="wave" style="position: relative; top: -80px">
+        <h2>COOK</h2>
+        <h2>FOOD</h2>
       </div>
+      <div style="display: flex; justify-content: center">
+        <p
+          style="
+            position: relative;
+            top: -100px;
+            font-weight: 500;
+            color: #06f60a;
+          "
+        >
+          Click Here to Start
+        </p>
+      </div>
+      <div style="display: flex; justify-content: center; position: relative">
+        <div class="container" style="position: relative; top: -300px">
+          <div class="toggle"><ion-icon name="add-outline"></ion-icon></div>
+          <ul class="menu">
+            <li style="--i: 1">
+              <a href="#"
+                ><ion-icon name="home-outline"></ion-icon
+                ><span style="font-size: 15px">Home</span></a
+              >
+            </li>
+            <li style="--i: 2">
+              <a href="#">
+                <ion-icon name="log-in-outline"></ion-icon>
+                <span style="font-size: 15px">log In</span></a
+              >
+            </li>
+            <li style="--i: 3">
+              <a href="#">
+                <ion-icon name="person-outline"></ion-icon>
+                <span style="font-size: 15px">Register</span></a
+              >
+            </li>
+            <li style="--i: 4">
+              <a href="#">
+                <ion-icon name="fast-food-outline"></ion-icon>
+                <span style="font-size: 15px">Chef</span></a
+              >
+            </li>
+            <li style="--i: 5">
+              <a href="#">
+                <ion-icon name="information-outline"></ion-icon>
+                <span style="font-size: 15px">FAQs</span></a
+              >
+            </li>
+            <li style="--i: 6">
+              <a href="#">
+                <ion-icon name="help-outline"></ion-icon>
+                <span style="font-size: 15px">About</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+<<<<<<< HEAD
 
       <ul class="menu">
         <li style="--i: 1">
@@ -48,6 +107,8 @@
           </a>
         </li>
       </ul>
+=======
+>>>>>>> ceb51e831e3d8cb0f1bd389b01cbcbfe43f48db8
     </div>
 
     <script
