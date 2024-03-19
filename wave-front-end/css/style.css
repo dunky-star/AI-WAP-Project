@@ -66,13 +66,16 @@ body {
 
 .menu li a:hover {
   border-color: #af0202;
-  background: rgb(5, 214, 241);
+  background: #0ea310;
   /* Change border color of the <a> element on hover */
 }
 
+
+
+
 .menu li a {
-  width: 55px;
-  height: 55px;
+  width: 80px;
+  height: 80px;
   color: #222;
   background: #fff;
   border-radius: 50%;
@@ -87,6 +90,17 @@ body {
   pointer-events: visible;
   transition: 0.3s;
   border: 3px solid pink;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu li a {
+  position: relative;
+  /* Make the <a> element a positioned parent for the pseudo-element */
+}
+
+.menu li a:hover::after {
+  display: block;
 }
 
 .container.active .menu li a {
