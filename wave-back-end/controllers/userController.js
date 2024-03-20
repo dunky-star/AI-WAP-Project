@@ -1,73 +1,97 @@
-const { findUser, saveUser } = require('../db/db');
-const errorTemplate = require('../other-errors/errorTemplate');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
-const mongoose = require('mongoose');
+const Review = require('../models/reviewModel');
+const { findUser, saveUser } = require('../db/db');
+const { appErr, AppErr } = require('../other-errors/appErr');
+const generateToken = require('../utils/generateToken');
 
 exports.userRegistration = async (req, res, next) => {
+  const { firstName, lastName, email, password } = req.body;
   try {
-    const user = await findUser({ email: req.body.email });
-    // if the user exist
-    if (user) {
-      // throw error
-      throw new Error('User exist, try logging in');
-    } else {
-      // map our req.body to our user model
-      const user = new User();
-      user._id = mongoose.Types.ObjectId();
-      const newUser = Object.assign(user, req.body);
-      // encrypt the password
-      const hash = await bcrypt.hash(newUser.password, 10);
-      // set the password with the encrypted password
-      newUser.password = hash;
-      // save the user to the database
-      const savedUser = await saveUser(newUser);
-      return res.status(201).json({
-        message: 'Successful Registration',
-        result: savedUser,
-      });
+    //Check if email exist
+    const userFound = await User.findOne({ email });
+    if (userFound) {
+      return next(new AppErr('User Already Exist', 500));
     }
-  } catch (e) {
-    return errorTemplate(res, e, e.message);
+    //hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    //create the user
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
+    res.json({
+      status: 'success',
+      data: user,
+    });
+  } catch (error) {
+    next(appErr(error.message));
   }
 };
 
 exports.userLogin = async (req, res, next) => {
+  const { email, password } = req.body;
   try {
-    // find The User returns a user
-    const loggedUser = await findUser({ email: req.body.email });
-    // if the user is NOT found
-    // return response stating authentication failed
-    if (!loggedUser) {
-      throw new Error('Authentication Failed: Unable to find user');
-    } else {
-      // use bcrypt to compare passwords
-      const result = await bcrypt.compare(
-        req.body.password,
-        loggedUser.password
-      );
-      // if result
-      if (result) {
-        // create a JSON Web Token
-        loggedUser.password = null;
-        const token = jwt.sign({ user: loggedUser }, process.env.jwt);
-        // return response stating authentication successful, token, logged:true
-        return res.status(201).json({
-          result: loggedUser,
-          logged: true,
-          token: token,
-          message: 'Login Successful',
-        });
-      } else {
-        // return response authentication failed
-        throw new Error(
-          'Authentication failed: Email or password does not match'
-        );
+    //Check if email exist
+    const userFound = await User.findOne({ email });
+    if (!userFound) {
+      return next(appErr('Invalid login credentials'));
+    }
+    //verify password
+    const isPasswordMatched = await bcrypt.compare(
+      password,
+      userFound.password
+    );
+
+    if (!isPasswordMatched) {
+      if (!userFound) {
+        return next(appErr('Invalid login credentials'));
       }
     }
-  } catch (e) {
-    return errorTemplate(res, e, e.message);
+
+    res.json({
+      status: 'success',
+      data: {
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
+        email: userFound.email,
+        isAdmin: userFound.isAdmin,
+        token: generateToken(userFound._id),
+      },
+    });
+  } catch (error) {
+    next(appErr(error.message));
   }
 };
+
+exports.postUserReview = async (req, res, next) => {
+  const { title, description } = req.body;
+  try {
+    //Find the user
+    const author = await User.findById(req.userAuth);
+
+    //Create the review
+    const reviewCreated = await Review.create({
+      title,
+      description,
+      user: author._id,
+    });
+    //Associate user to a review -Push the review into the user reviews field
+    author.reviews.push(reviewCreated);
+    //save
+    await author.save();
+    res.json({
+      status: 'success',
+      data: reviewCreated,
+    });
+  } catch (error) {
+    next(appErr(error.message));
+  }
+};
+
+exports.getUserReviews = async (req, res, next) => {};
+
+exports.resetPassword = async (req, res, next) => {};

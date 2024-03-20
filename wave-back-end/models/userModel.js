@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -12,12 +13,18 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
     required: true,
   },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+    },
+  ],
 });
 
 module.exports = mongoose.model('User', userSchema);
