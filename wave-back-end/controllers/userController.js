@@ -1,10 +1,9 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
 const { findUser, saveUser } = require('../db/db');
-const errorTemplate = require('../other-errors/errorTemplate');
 const { appErr, AppErr } = require('../other-errors/appErr');
+const generateToken = require('../utils/generateToken');
 
 exports.userRegistration = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -56,8 +55,8 @@ exports.userLogin = async (req, res, next) => {
     res.json({
       status: 'success',
       data: {
-        firstname: userFound.firstname,
-        lastname: userFound.lastname,
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
         email: userFound.email,
         isAdmin: userFound.isAdmin,
         token: generateToken(userFound._id),
