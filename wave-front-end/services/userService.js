@@ -2,12 +2,14 @@ const axios = require('axios');
 require('dotenv').config();
 
 const postRegister = async body => {
-  const result = await axios.post(process.env.URL + 'users/register', {
+  console.log('enter in the api');
+  const result = await axios.post(process.env.URL + 'cookchef/v1/register', {
     firstName: body.firstName,
     lastName: body.lastName,
     email: body.email,
     password: body.password,
   });
+  console.log(result);
   return result;
 };
 

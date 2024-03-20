@@ -73,9 +73,13 @@ const postLoginHandler = async (req, res) => {
 const postRegisterHandler = async (req, res) => {
   try {
     session = req.session;
+    //console.log('enter inside "before errors" the api');
     const errors = validateRegistration(req.body);
-    if (isEmpty(errors)) {
+    console.log(errors);
+    if (req.body !== null) {
+      console.log(req.body);
       // call the backend
+      console.log('enter inside "if" the api');
       const result = await postRegister(req.body);
       return successTemplate(
         res,
