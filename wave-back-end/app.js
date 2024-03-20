@@ -2,15 +2,22 @@ const express = require('express');
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const dbConfig = require("./config/db.config");
+require('dotenv').config();
+const cors = require('cors');
+const cookChefRoutes = require('./routes/cookChefRouter');
+const userRoutes = require('./routes/userRouter');
+const { connect } = require('./db/db');
+const globalErrHandler = require('./other-errors/globalErrHandler');
 const app = express();
-const chatRoutes = require('./routes/chatroute');
+const PORT = process.env.PORT || 3000;
 
 // Setting static folder for handling static resources.
 app.use(express.static('public'));
 
-// middleware
+// Middleware to parse incoming JSON payloads
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 
 // parse requests of content-type - application/x-www-form-urlencoded
 //app.use(express.urlencoded({ extended: true }));
@@ -25,6 +32,7 @@ app.use(
 
 
 // Routes import
+app.use(cookChefRoutes);
 app.use(chatRoutes);
 app.use(cors());
 // simple route
@@ -35,14 +43,7 @@ app.get("/checkapp", (req, res) => {
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 
-app.use((req, res, next) => {
-  res.status(404).send('Oop! the resource not found');
-});
 
-app.use((err, req, res, next) => {
-  console.log(err.toString());
-  res.status(500).send('Oops! An error occurred');
-});
 
 // it is for mongo DB connection
 const db = require("./models");
@@ -63,3 +64,17 @@ db.mongoose
 app.listen(3000, () =>
   console.log('Server started and listening to requests on port 3000')
 );
+
+async function startServer() {
+  try {
+    await connect();
+    app.listen(PORT, () => {
+      console.log(`Server started and listening to requests on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error starting server:', error);
+  }
+}
+
+startServer();
+

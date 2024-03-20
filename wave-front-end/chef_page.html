@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="css/chef-page.css"
+      type="text/css"
+      media="all"
+    />
+    <title>Cook Chef page</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container rounded-container">
+      <!-- Header -->
+      <div class="text-center">
+        <img src="logo.png" alt="COOK CHEF LOGO" />
+        <h1>COOK CHEF</h1>
+      </div>
+
+      <!-- Form -->
+      <form id="mealForm">
+        <div class="mb-3">
+          <label for="ingredientsInput" class="form-label"
+            >Food Ingredients</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="ingredientsInput"
+            placeholder="broccoli, chicken, fish, vegetables, cabbage, eggs, olive oil"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="kcalInput" class="form-label">kCal Intake</label>
+          <input
+            type="number"
+            class="form-control"
+            id="kcalInput"
+            placeholder="2000"
+            required
+          />
+        </div>
+        <div class="center-spinner">
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary me-2" id="sendButton">
+              Send
+            </button>
+            <button type="button" class="btn btn-secondary" id="clearButton">
+              Clear
+            </button>
+          </div>
+          <div
+            class="spinner-border text-primary d-none mt-3"
+            role="status"
+            id="loadingSpinner"
+          >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-4">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="breakfast-tab"
+              data-bs-toggle="tab"
+              href="#breakfast"
+              role="tab"
+              aria-controls="breakfast"
+              aria-selected="true"
+              >Breakfast</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="lunch-tab"
+              data-bs-toggle="tab"
+              href="#lunch"
+              role="tab"
+              aria-controls="lunch"
+              aria-selected="false"
+              >Lunch</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="dinner-tab"
+              data-bs-toggle="tab"
+              href="#dinner"
+              role="tab"
+              aria-controls="dinner"
+              aria-selected="false"
+              >Dinner</a
+            >
+          </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active"
+            id="breakfast"
+            role="tabpanel"
+            aria-labelledby="breakfast-tab"
+          >
+            <!-- Breakfast content will be inserted here -->
+          </div>
+          <div
+            class="tab-pane fade"
+            id="lunch"
+            role="tabpanel"
+            aria-labelledby="lunch-tab"
+          >
+            <!-- Lunch content will be inserted here -->
+          </div>
+          <div
+            class="tab-pane fade"
+            id="dinner"
+            role="tabpanel"
+            aria-labelledby="dinner-tab"
+          >
+            <!-- Dinner content will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vanilla JS -->
+    <script type="text/javascript" src="js/chef_page_script.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <noscript
+      >Oops! This side requires JavaScript enabled inorder to work
+      well.</noscript
+    >
+  </body>
+</html>
