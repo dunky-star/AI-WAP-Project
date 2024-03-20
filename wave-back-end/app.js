@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookChefRoutes = require('./routes/cookChefRouter');
 const userRoutes = require('./routes/userRouter');
 const { connect } = require('./db/db');
+const globalErrHandler = require('./other-errors/globalErrHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,17 +23,15 @@ app.use(cors());
 app.use(userRoutes);
 app.use(cookChefRoutes);
 
-// Middleware for handling 404 errors
-app.use((req, res, next) => {
-  res.status(404).json({ message: 'Oops! The resource was not found' });
-});
+//Error handlers middleware
+app.use(globalErrHandler);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err);
-  res
-    .status(err.status || 500)
-    .json({ message: err.message || 'Oops! An error occurred' });
+//404 error
+app.use('*', (req, res) => {
+  console.log(req.originalUrl);
+  res.status(404).json({
+    message: `${req.originalUrl} - Route Not Found`,
+  });
 });
 
 async function startServer() {
