@@ -1,42 +1,49 @@
 const express = require('express');
 require('dotenv').config();
-const app = express();
 const cors = require('cors');
-const cookChefRoutes = require('./routes/cookChefRoute');
+const cookChefRoutes = require('./routes/cookChefRouter');
 const userRoutes = require('./routes/userRouter');
 const { connect } = require('./db/db');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Setting static folder for handling static resources.
 app.use(express.static('public'));
 
-// middleware to form contract for incoming JSON payloads
+// Middleware to parse incoming JSON payloads
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Middleware to handle CORS policy
 app.use(cors());
 
-// Routes import
+// Routes
 app.use(userRoutes);
 app.use(cookChefRoutes);
 
+// Middleware for handling 404 errors
 app.use((req, res, next) => {
-  res.status(404).json({ message: 'Oop! the resource not found' });
+  res.status(404).json({ message: 'Oops! The resource was not found' });
 });
 
+// Error handling middleware
 app.use((err, req, res, next) => {
-  console.log(err.toString());
-  res.status(500).json({ message: 'Oops! An error occurred' });
+  console.error(err);
+  res
+    .status(err.status || 500)
+    .json({ message: err.message || 'Oops! An error occurred' });
 });
 
-connect()
-  .then(
-    app.listen(process.env.port, () =>
-      console.log(
-        `Server started and listening to requests on port ${process.env.port}`
-      )
-    )
-  )
-  .catch(err => {
-    console.log(err);
-  });
+async function startServer() {
+  try {
+    await connect();
+    app.listen(PORT, () => {
+      console.log(`Server started and listening to requests on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error starting server:', error);
+  }
+}
+
+startServer();

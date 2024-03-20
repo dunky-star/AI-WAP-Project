@@ -2,22 +2,49 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
 
+// Connect to MongoDB
 const connect = async () => {
-  console.log('MongoDB is up and running');
-  mongoose.set('strictQuery', true);
-  await mongoose.connect(process.env.mongo);
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
 };
 
+// Disconnect from MongoDB
 const disconnect = async () => {
-  await mongoose.connection.close();
+  try {
+    await mongoose.disconnect();
+    console.log('MongoDB disconnected');
+  } catch (error) {
+    console.error('Error disconnecting from MongoDB:', error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
 };
 
-// obj {firstName: req.body.firstName, email: req.body.email}
-const findUser = async obj => {
-  return User.findOne(obj).exec();
+// Find a user in the database
+const findUser = async query => {
+  try {
+    return await User.findOne(query).exec();
+  } catch (error) {
+    console.error('Error finding user:', error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
 };
+
+// Save a new user to the database
 const saveUser = async newUser => {
-  return await newUser.save();
+  try {
+    return await newUser.save();
+  } catch (error) {
+    console.error('Error saving user:', error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
 };
 
 module.exports = { connect, disconnect, findUser, saveUser };

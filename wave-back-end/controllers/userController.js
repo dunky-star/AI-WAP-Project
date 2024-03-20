@@ -1,73 +1,60 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
 const { findUser, saveUser } = require('../db/db');
 const errorTemplate = require('../other-errors/errorTemplate');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
-const mongoose = require('mongoose');
 
 exports.userRegistration = async (req, res, next) => {
   try {
-    const user = await findUser({ email: req.body.email });
-    // if the user exist
-    if (user) {
-      // throw error
-      throw new Error('User exist, try logging in');
+    const existingUser = await findUser({ email: req.body.email });
+
+    if (existingUser) {
+      throw new Error('User already exists. Please log in.');
     } else {
-      // map our req.body to our user model
-      const user = new User();
-      user._id = mongoose.Types.ObjectId();
-      const newUser = Object.assign(user, req.body);
-      // encrypt the password
-      const hash = await bcrypt.hash(newUser.password, 10);
-      // set the password with the encrypted password
-      newUser.password = hash;
-      // save the user to the database
+      const newUser = new User(req.body);
+      newUser.password = await bcrypt.hash(newUser.password, 10);
       const savedUser = await saveUser(newUser);
+
       return res.status(201).json({
         message: 'Successful Registration',
-        result: savedUser,
+        result: savedUser.toObject(), // Convert Mongoose document to plain JavaScript object
       });
     }
-  } catch (e) {
-    return errorTemplate(res, e, e.message);
+  } catch (error) {
+    return errorTemplate(res, error, error.message);
   }
 };
 
 exports.userLogin = async (req, res, next) => {
   try {
-    // find The User returns a user
     const loggedUser = await findUser({ email: req.body.email });
-    // if the user is NOT found
-    // return response stating authentication failed
+
     if (!loggedUser) {
       throw new Error('Authentication Failed: Unable to find user');
-    } else {
-      // use bcrypt to compare passwords
-      const result = await bcrypt.compare(
-        req.body.password,
-        loggedUser.password
-      );
-      // if result
-      if (result) {
-        // create a JSON Web Token
-        loggedUser.password = null;
-        const token = jwt.sign({ user: loggedUser }, process.env.jwt);
-        // return response stating authentication successful, token, logged:true
-        return res.status(201).json({
-          result: loggedUser,
-          logged: true,
-          token: token,
-          message: 'Login Successful',
-        });
-      } else {
-        // return response authentication failed
-        throw new Error(
-          'Authentication failed: Email or password does not match'
-        );
-      }
     }
-  } catch (e) {
-    return errorTemplate(res, e, e.message);
+
+    const passwordMatch = await bcrypt.compare(
+      req.body.password,
+      loggedUser.password
+    );
+
+    if (passwordMatch) {
+      const userPayload = { _id: loggedUser._id, email: loggedUser.email };
+      const token = jwt.sign({ user: userPayload }, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
+
+      return res.status(200).json({
+        result: { email: loggedUser.email, _id: loggedUser._id },
+        token: token,
+        message: 'Login Successful',
+      });
+    } else {
+      throw new Error(
+        'Authentication failed: Email or password does not match'
+      );
+    }
+  } catch (error) {
+    return errorTemplate(res, error, error.message);
   }
 };
