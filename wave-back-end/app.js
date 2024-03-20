@@ -3,11 +3,8 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const dbConfig = require("./config/db.config");
 require('dotenv').config();
-const cors = require('cors');
 const cookChefRoutes = require('./routes/cookChefRouter');
-const userRoutes = require('./routes/userRouter');
-const { connect } = require('./db/db');
-const globalErrHandler = require('./other-errors/globalErrHandler');
+//const globalErrHandler = require('./other-errors/globalErrHandler');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -33,7 +30,6 @@ app.use(
 
 // Routes import
 app.use(cookChefRoutes);
-app.use(chatRoutes);
 app.use(cors());
 // simple route
 app.get("/checkapp", (req, res) => {
@@ -64,17 +60,4 @@ db.mongoose
 app.listen(3000, () =>
   console.log('Server started and listening to requests on port 3000')
 );
-
-async function startServer() {
-  try {
-    await connect();
-    app.listen(PORT, () => {
-      console.log(`Server started and listening to requests on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error('Error starting server:', error);
-  }
-}
-
-startServer();
 

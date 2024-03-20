@@ -88,7 +88,7 @@ exports.forgotPassword = (req, res) => {
     email: req.body.email
   })
     .populate().exec((err, user) => {
-      console.log(user);
+
         if (err) {
           res.status(500).send({ message: err });
           return;
@@ -108,20 +108,20 @@ exports.forgotPassword = (req, res) => {
         User.updateOne(query, data, (err, collection) => {
           if (err) throw err;
           console.log("Record updated successfully");
-          db.close();
         });
         try{
           const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-               user: 'youremail@gmail.com',
-               pass: 'jbma wtsk deoz wtfk',
+               user: 'reza.newgen@gmail.com',
+               pass: 'edgi gkkt vyta uwqn',
             },
           });
 
           const mailOptions = {
-            from: 'youremail@gmail.com',
-            to: req.body.email,
+            from: 'reza.newgen@gmail.com',
+           // to: req.body.email,
+           to :'mreza.ngn@gmail.com',
             subject: 'Password reset OTP',
             text: `Your OTP (It is expired after 10 min) : ${otp}`,
         };
@@ -142,3 +142,31 @@ exports.forgotPassword = (req, res) => {
         }
     });
 };
+
+
+exports.resetPassword = (req, res) => {
+  User.findOne({
+    resettoken: req.body.resettoken
+  })
+    .populate().exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+
+      //Query parameter is used to search the collection.
+      var query = { resettoken: req.body.resettoken};
+      //And When the query matches the data in the DB , "data" parameter is used to update the value.
+      var data = { password:  bcrypt.hashSync(req.body.password, 8) }
+      //Accessing the collection using nodejs
+      User.updateOne(query, data, (err, collection) => {
+        if (err) throw err;
+        console.log("Record updated successfully");
+      });
+      res.status(200).send({ message: "Password was changed successfully!" });
+    });
+}    
