@@ -55,5 +55,9 @@ perceptron.py
 **/__pycache__
 .spyproject/
 
+
 # dependencies
 /node_modules
+
+# Env
+.env
