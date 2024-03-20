@@ -6,7 +6,7 @@
     <title>login</title>
     <link
       rel="stylesheet"
-      href="./css/loginstyles.css"
+      href="css/loginstyles.css"
       type="text/css"
       media="all"
     />
@@ -22,7 +22,6 @@
           <ul>
             <li><a href="#" class="link active">Home</a></li>
             <li><a href="#" class="link">Chef</a></li>
-            <li><a href="#" class="link">Reviews</a></li>
             <li><a href="#" class="link">FAQs</a></li>
             <li><a href="#" class="link">About</a></li>
           </ul>
@@ -53,14 +52,85 @@
             <header>Login</header>
           </div>
           <div class="input-box">
+            <form action="/login" method="POST">
             <input
               type="text"
-              name="username"
+              name=""
               id=""
               class="input-field"
               placeholder=" Username or Email"
             />
             <box-icon type="solid" name="user"></box-icon>
+          </div>
+          <div class="input-box">
+            <input
+              type="password"
+              name=""
+              id=""
+              class="input-field"
+              placeholder="Password"
+            />
+            <box-icon name="lock-alt" type="solid"></box-icon>
+          </div>
+          <div class="input-box">
+            <input
+              type="submit"
+              name=""
+              id=""
+              class="input-field submit"
+              value="Sign In"
+            />
+          </div>
+        </form>
+          <div class="two-col">
+            <div class="one">
+              <input type="checkbox" name="" id="login-check" />
+              <label for="register-check">Remember Me</label>
+            </div>
+            <div class="two">
+              <label for=""><a href="#">Forgot Password?</a></label>
+            </div>
+          </div>
+        </div>
+
+        <!-----------------------Registration Form-->
+        <div class="register-container" id="register">
+          <form action="/register" method="post" name="signUp">
+          <div class="top">
+            <span>Have an Account?<a href="#" onclick="login()">Login</a></span>
+            <header>Sign Up</header>
+          </div>
+          <div class="two-forms">
+            <div class="input-box">
+              <input
+                type="text"
+                name="firstName"
+                id=""
+                class="input-field"
+                placeholder="Firstname"
+              />
+              <box-icon type="solid" name="user"></box-icon>
+            </div>
+            <div class="input-box">
+              <input
+                type="text"
+                name="lastName"
+                id=""
+                class="input-field"
+                placeholder="Lastname"
+              />
+              <box-icon type="solid" name="user"></box-icon>
+            </div>
+          </div>
+          <div class="input-box">
+            <input
+              type="email"
+              name="email"
+              id=""
+              class="input-field"
+              placeholder="Email"
+            />
+            <box-icon type="solid" name="envelope"></box-icon>
           </div>
           <div class="input-box">
             <input
@@ -76,80 +146,12 @@
             <input
               type="submit"
               name=""
-              id="signin"
-              class="input-field submit"
-              value="Sign In"
-              onclick="myFunction()"
-            />
-          </div>
-          <div class="two-col">
-            <div class="one">
-              <input type="checkbox" name="" id="login-check" />
-              <label for="register-check">Remember Me</label>
-            </div>
-            <div class="two">
-              <label for=""><a href="#">Forgot Password?</a></label>
-            </div>
-          </div>
-        </div>
-
-        <!-----------------------Registration Form-->
-        <div class="register-container" id="register">
-          <div class="top">
-            <span>Have an Account?<a href="#" onclick="login()">Login</a></span>
-            <header>Sign Up</header>
-          </div>
-          <div class="two-forms">
-            <div class="input-box">
-              <input
-                type="text"
-                name=""
-                id=""
-                class="input-field"
-                placeholder="Firstname"
-              />
-              <box-icon type="solid" name="user"></box-icon>
-            </div>
-            <div class="input-box">
-              <input
-                type="text"
-                name=""
-                id=""
-                class="input-field"
-                placeholder="Lastname"
-              />
-              <box-icon type="solid" name="user"></box-icon>
-            </div>
-          </div>
-          <div class="input-box">
-            <input
-              type="text"
-              name=""
-              id=""
-              class="input-field"
-              placeholder="Email"
-            />
-            <box-icon type="solid" name="envelope"></box-icon>
-          </div>
-          <div class="input-box">
-            <input
-              type="password"
-              name=""
-              id=""
-              class="input-field"
-              placeholder="Password"
-            />
-            <box-icon name="lock-alt" type="solid"></box-icon>
-          </div>
-          <div class="input-box">
-            <input
-              type="submit"
-              name=""
               id=""
               class="input-field submit"
               value="Register"
             />
           </div>
+        </form>
           <div class="two-col">
             <div class="one">
               <input type="checkbox" name="" id="register-check" />
