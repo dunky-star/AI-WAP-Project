@@ -41,7 +41,7 @@ exports.userLogin = async (req, res, next) => {
     if (passwordMatch) {
       const userPayload = { _id: loggedUser._id, email: loggedUser.email };
       const token = jwt.sign({ user: userPayload }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
+        expiresIn: '7d',
       });
 
       return res.status(200).json({
@@ -58,3 +58,9 @@ exports.userLogin = async (req, res, next) => {
     return errorTemplate(res, error, error.message);
   }
 };
+
+exports.postUserReview = async (req, res, next) => {};
+
+exports.getUserReviews = async (req, res, next) => {};
+
+exports.resetPassword = async (req, res, next) => {};

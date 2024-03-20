@@ -13,12 +13,18 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
     required: true,
   },
+  Reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+    },
+  ],
 });
 
 module.exports = mongoose.model('User', userSchema);
