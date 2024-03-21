@@ -1,7 +1,7 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 const router = express.Router();
-const axios = require("axios");
+const axios = require('axios');
 
 //body parser
 router.use(express.json());
@@ -9,39 +9,63 @@ router.use(express.urlencoded({ extended: false }));
 
 //End Points
 
-router.get("/", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "login.html"));
+router.get('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-router.post("/login", async (req, res, next) => {
-  console.log("Am in login-route", req.body);
+router.get('/home', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+router.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+router.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+router.get('/chef', (req, res) => {
+  res.sendFile(path.join(__dirname, 'chef_page.html'));
+});
+
+router.get('/faqs', (req, res) => {
+  res.sendFile(path.join(__dirname, 'FAQs.html'));
+});
+
+router.get('/reviews', (req, res) => {
+  res.sendFile(path.join(__dirname, 'review.html'));
+});
+
+router.post('/login', async (req, res, next) => {
+  console.log('Am in login-route', req.body);
   try {
     let details = {
       email: req.body.email,
       password: req.body.password,
     };
 
-    const response = await fetch("http://localhost:3000/cookchef/v1/login", {
-      method: "POST",
+    const response = await fetch('http://localhost:3000/cookchef/v1/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(details),
     });
 
     if (response.ok) {
       // If Successful send the landing page
-      res.sendFile(path.join(__dirname, "chef_page.html"));
+      res.sendFile(path.join(__dirname, 'index.html'));
     } else {
       // If there was an error in the request
-      res.sendFile(path.join(__dirname, "error.html"));
+      res.sendFile(path.join(__dirname, 'error.html'));
     }
 
     console.log(await response.json());
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
   } catch (error) {
-    console.error("Error forwarding request to backend:", error.message);
-    res.status(500).sendFile(path.join(__dirname, "error.html"));
+    console.error('Error forwarding request to backend:', error.message);
+    res.status(500).sendFile(path.join(__dirname, 'error.html'));
   }
 });
 
@@ -64,31 +88,31 @@ router.post("/login", async (req, res, next) => {
 //   }
 // });
 
-router.post("/signup", async (req, res, next) => {
-  console.log("Am in signup-route", req.body);
+router.post('/signup', async (req, res, next) => {
+  console.log('Am in signup-route', req.body);
   let details = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
   };
-  console.log("details", details);
+  console.log('details', details);
 
   try {
-    const response = await fetch("http://localhost:3000/cookchef/v1/register", {
-      method: "POST",
+    const response = await fetch('http://localhost:3000/cookchef/v1/register', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(details),
     });
 
     if (response.ok) {
       // If Successful send the landing page
-      res.sendFile(path.join(__dirname, "login.html"));
+      res.sendFile(path.join(__dirname, 'login.html'));
     } else {
       // If there was an error in the request
-      res.sendFile(path.join(__dirname, "error.html"));
+      res.sendFile(path.join(__dirname, 'error.html'));
     }
 
     const responseData = await response.json();
@@ -96,8 +120,8 @@ router.post("/signup", async (req, res, next) => {
 
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
   } catch (error) {
-    console.error("Error forwarding request to backend:", error.message);
-    res.status(500).sendFile(path.join(__dirname, "error.html"));
+    console.error('Error forwarding request to backend:', error.message);
+    res.status(500).sendFile(path.join(__dirname, 'error.html'));
   }
 });
 

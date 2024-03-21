@@ -18,7 +18,7 @@ body {
   margin: 0 auto; /* Center the container and set the width to 80% */
   width: 80%;
   color: rgb(13, 12, 12); /* Set text color to white for better contrast */
-  font-weight: 600;
+  font-weight: 900;
 }
 img {
   max-width: 100%;
