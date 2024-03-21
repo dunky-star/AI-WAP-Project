@@ -8,10 +8,10 @@
 body {
   min-height: 100vh;
   background-image: url('./food.jpg');
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
 }
 .rounded-container {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
   border: black 3px solid;
   border-radius: 10px;
   padding: 20px;

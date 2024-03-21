@@ -10,7 +10,7 @@ router.use(express.urlencoded({ extended: false }));
 //End Points
 
 router.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, 'login.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 router.get('/home', (req, res, next) => {
@@ -55,7 +55,7 @@ router.post('/login', async (req, res, next) => {
 
     if (response.ok) {
       // If Successful send the landing page
-      res.sendFile(path.join(__dirname, 'index.html'));
+      res.sendFile(path.join(__dirname, 'chef_page.html'));
     } else {
       // If there was an error in the request
       res.sendFile(path.join(__dirname, 'error.html'));
