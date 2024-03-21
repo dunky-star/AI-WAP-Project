@@ -57,7 +57,7 @@ db.mongoose
     process.exit();
   });
 
-app.listen(3002, () =>
-  console.log('Server started and listening to requests on port 3002')
+app.listen(3000, () =>
+  console.log('Server started and listening to requests on port 3000')
 );
 
