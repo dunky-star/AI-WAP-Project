@@ -85,7 +85,7 @@ router.post('/signup', async (req, res, next) => {
 
     if (response.ok) {
       // If Successful send the landing page
-      res.sendFile(path.join(__dirname, 'chef_page.html'));
+      res.sendFile(path.join(__dirname, 'login.html'));
     } else {
       // If there was an error in the request
       res.sendFile(path.join(__dirname, 'error.html'));
