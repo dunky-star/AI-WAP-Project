@@ -51,6 +51,7 @@
               ></span
             >
             <header>Login</header>
+            <form action="/login" method="POST">
           </div>
           <div class="input-box">
             <input
@@ -58,14 +59,14 @@
               name=""
               id=""
               class="input-field"
-              placeholder=" Username or Email"
+              placeholder="Email"
             />
             <box-icon type="solid" name="user"></box-icon>
           </div>
           <div class="input-box">
             <input
               type="password"
-              name=""
+              name="password"
               id=""
               class="input-field"
               placeholder="Password"
@@ -81,6 +82,7 @@
               value="Sign In"
             />
           </div>
+          
           <div class="two-col">
             <div class="one">
               <input type="checkbox" name="" id="login-check" />
@@ -89,6 +91,7 @@
             <div class="two">
               <label for=""><a href="#">Forgot Password?</a></label>
             </div>
+            </form>
           </div>
         </div>
 
@@ -98,6 +101,7 @@
             <span>Have an Account?<a href="#" onclick="login()">Login</a></span>
             <header>Sign Up</header>
           </div>
+          <form action="/signup" method="post">
           <div class="two-forms">
             <div class="input-box">
               <input
@@ -157,6 +161,7 @@
             <div class="two">
               <label for=""><a href="#">Terms & Conditions</a></label>
             </div>
+            </form>
           </div>
         </div>
       </div>
