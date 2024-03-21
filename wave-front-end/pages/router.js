@@ -14,10 +14,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-  console.log('Am in route');
+  console.log('Am in login-route');
   try {
     const backendResponse = await axios.post(
-      'http://localhost:3001/backend-route',
+      'http://127.0.0.1:3000/api/auth/signin',
       req.body
     );
     // If Successful send the landing page
@@ -33,14 +33,16 @@ router.post('/login', async (req, res, next) => {
 });
 
 router.post('/signup', async (req, res, next) => {
-  console.log('Am in route');
+  onsole.log('Am in signup-route');
   try {
     const backendResponse = await axios.post(
-      'http://localhost:3002/backend-route',
+      'http://127.0.0.1:3000/api/auth/signup',
       req.body
     );
     // If Successful send the landing page
-    res.json(backendResponse.data);
+    if (backendResponse) res.sendFile(path.join(__dirname, 'chef_page.html'));
+    else res.sendFile(path.join(__dirname, 'error.html'));
+    //res.json(backendResponse.data);
 
     console.log(backendResponse.data);
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
