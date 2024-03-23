@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
-const { findUser, saveUser } = require('../db/db');
 const { appErr, AppErr } = require('../other-errors/appErr');
 const generateToken = require('../utils/generateToken');
 
@@ -92,6 +91,40 @@ exports.postUserReview = async (req, res, next) => {
   }
 };
 
-exports.getUserReviews = async (req, res, next) => {};
+//all
+exports.getUserReviews = async (req, res, next) => {
+  try {
+    const reviews = await Review.find().populate('user');
+    res.json({
+      status: 'success',
+      data: reviews,
+    });
+  } catch (error) {
+    res.json(error.message);
+  }
+};
 
-exports.resetPassword = async (req, res, next) => {};
+exports.resetPassword = async (req, res, next) => {
+  const { password } = req.body;
+  try {
+    //Check if user is updating the password
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      //update user
+      await User.findByIdAndUpdate(
+        req.userAuth,
+        { password: hashedPassword },
+        { new: true, runValidators: true }
+      );
+      res.json({
+        status: 'success',
+        data: 'Password has been changed successfully',
+      });
+    } else {
+      return next(appErr('Please provide password field'));
+    }
+  } catch (error) {
+    next(appErr(error.message));
+  }
+};
