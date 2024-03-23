@@ -26,7 +26,7 @@ router.get('/chef', (req, res) => {
 });
 
 router.get('/faqs', (req, res) => {
-  res.render('FAQs', { path: 'faqs', pageTitle: 'FAQs - Cook Food Chef' });
+  res.render('FAQs', { path: '/faqs', pageTitle: 'FAQs - Cook Food Chef' });
 });
 
 router.get('/reviews', (req, res) => {
