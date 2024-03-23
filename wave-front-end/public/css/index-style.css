@@ -12,7 +12,7 @@ body {
   align-items: center;
   background: #2f2f2f;
   justify-content: center;
-  background-image: url('./background-img.jpg');
+  background-image: url('../img/background-img.jpg');
   background-size: cover;
   background-position: center;
 }
