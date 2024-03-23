@@ -41,6 +41,7 @@ router.get('/reviews', (req, res) => {
 
 router.post('/login', async (req, res, next) => {
   console.log('Am in login-route', req.body);
+  // console.log(req);
   try {
     let details = {
       email: req.body.email,
@@ -54,8 +55,21 @@ router.post('/login', async (req, res, next) => {
       },
       body: JSON.stringify(details),
     });
+    
+    console.log(details)
+    console.log(JSON.stringify(details))
 
-    if (response.ok) {
+  //   const response = await axiosInstance.post(process.env.URL+'/cookchef/v1/login',
+  //     JSON.stringify(details)
+  //   , {
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }
+  // )
+
+
+    if (response.status === 200) {
       // If Successful send the AI assistant page
       res.render('chef_page', {
         path: '/chef_page',
@@ -69,7 +83,7 @@ router.post('/login', async (req, res, next) => {
       });
     }
 
-    console.log(await response.json());
+    console.log(await response.data);
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
   } catch (error) {
     console.error('Error forwarding request to backend:', error.message);

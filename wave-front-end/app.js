@@ -5,9 +5,15 @@ const app = express();
 const cors = require('cors');
 
 
+
+
 const dotenv = require('dotenv');
 
-const PORT = 4000;
+
+const PORT = process.env.PORT || 4000;
+
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
 // cors middleware
 app.use(cors());
