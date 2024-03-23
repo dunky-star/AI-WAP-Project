@@ -6,7 +6,7 @@
     <title><%= pageTitle %></title>
     <link
       rel="stylesheet"
-      href="./css/loginstyles.css"
+      href="css/loginstyles.css"
       type="text/css"
       media="all"
     />
@@ -14,31 +14,8 @@
   </head>
   <body>
     <div class="wrapper">
-      <nav class="nav">
-        <div class="nav-logo">
-          <p>COOKCHEF</p>
-        </div>
-        <div class="nav-menu">
-          <ul>
-            <li><a href="/home" class="link">Home</a></li>
-            <li><a href="/chef" class="link">Chef</a></li>
-            <li><a href="/reviews" class="link">Reviews</a></li>
-            <li><a href="/faqs" class="link">FAQs</a></li>
-            <li><a href="/about" class="link">About</a></li>
-          </ul>
-        </div>
-        <div class="nav-button" id="navMenu">
-          <button class="btn white-btn" id="loginBtn" onclick="login()">
-            Sign In
-          </button>
-          <button class="btn" id="registerBtn" onclick="register()">
-            Sign Up
-          </button>
-        </div>
-        <div class="nav-menu-btn">
-          <box-icon name="menu" onclick="myMenuFunction()"></box-icon>
-        </div>
-      </nav>
+      
+      <%- include('includes/nav') %>
 
       <!------------------------------FORM BOX------------>
       <div class="form-box">
@@ -57,7 +34,7 @@
             <input
               type="text"
               name="email"
-              id=""
+              id="email--login"
               class="input-field"
               placeholder="email"
               required
@@ -68,7 +45,7 @@
             <input
               type="password"
               name="password"
-              id=""
+              id="password--login"
               class="input-field"
               placeholder="Password"
               required
@@ -109,7 +86,7 @@
               <input
                 type="text"
                 name="firstName"
-                id=""
+                id="firstName"
                 class="input-field"
                 placeholder="Firstname"
                 required
@@ -120,7 +97,7 @@
               <input
                 type="text"
                 name="lastName"
-                id=""
+                id="lastName"
                 class="input-field"
                 placeholder="Lastname"
                 required
@@ -132,7 +109,7 @@
             <input
               type="text"
               name="email"
-              id=""
+              id="email--register"
               class="input-field"
               placeholder="Email"
               required
@@ -143,7 +120,7 @@
             <input
               type="password"
               name="password"
-              id=""
+              id="password--register"
               class="input-field"
               placeholder="Password"
               required
@@ -154,7 +131,6 @@
             <input
               type="submit"
               name=""
-              id=""
               class="input-field submit"
               value="Register"
             />
@@ -164,9 +140,7 @@
               <input type="checkbox" name="" id="register-check" />
               <label for="register-check">Remember Me</label>
             </div>
-            <div class="two">
-              <label for=""><a href="#">Terms & Conditions</a></label>
-            </div>
+            <%- include('includes/footer') %>;
             </form>
           </div>
         </div>

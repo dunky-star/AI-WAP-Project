@@ -54,7 +54,7 @@ document
                     <h2>${breakfast.title}</h2>
                     <div class="row">
                         <div class="col-md-6">
-                            <p style="color: black;">${replaceNewlinesWithBr(
+                            <p style="color: #fff;">${replaceNewlinesWithBr(
                               breakfast.description
                             )}</p>
                         </div>
@@ -70,7 +70,7 @@ document
                     <h2>${lunch.title}</h2>
                     <div class="row">
                         <div class="col-md-6">
-                            <p style="color: black;">${replaceNewlinesWithBr(
+                            <p style="color: #fff;">${replaceNewlinesWithBr(
                               lunch.description
                             )}</p>
                         </div>
@@ -86,7 +86,7 @@ document
                     <h2>${dinner.title}</h2>
                     <div class="row">
                         <div class="col-md-6">
-                            <p style="color: black;">${replaceNewlinesWithBr(
+                            <p style="color: #fff;">${replaceNewlinesWithBr(
                               dinner.description
                             )}</p>
                         </div>
