@@ -72,7 +72,7 @@ router.post('/login', async (req, res, next) => {
     console.error('Error forwarding request to backend:', error.message);
     res
       .status(500)
-      .render('eror', { path: '/error', pageTitle: 'Error - Cook Food Chef' });
+      .render('error', { path: '/error', pageTitle: 'Error - Cook Food Chef' });
   }
 });
 
@@ -103,7 +103,7 @@ router.post('/signup', async (req, res, next) => {
       });
     } else {
       // If there was an error in the request
-      res.status(500).render('eror', {
+      res.status(500).render('error', {
         path: '/error',
         pageTitle: 'Error - Cook Food Chef',
       });
@@ -117,7 +117,7 @@ router.post('/signup', async (req, res, next) => {
     console.error('Error forwarding request to backend:', error.message);
     res
       .status(500)
-      .render('eror', { path: '/error', pageTitle: 'Error - Cook Food Chef' });
+      .render('error', { path: '/error', pageTitle: 'Error - Cook Food Chef' });
   }
 });
 
