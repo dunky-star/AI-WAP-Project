@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 require('dotenv').config();
+const axiosInstance = require('../services/axios');
+const isloggedInAlready = require('../middlewares/authentication');
+const { saveToken } = require('../services/authStorage');
 
 //End Points
 
@@ -13,7 +16,10 @@ router.get('/home', (req, res, next) => {
   res.render('index', { path: '/', pageTitle: 'Home - Cook Food Chef' });
 });
 
-router.get('/login', (req, res) => {
+router.get('/login',isloggedInAlready, (req, res) => {
+
+  // console.log('auth token', getToken())
+
   res.render('login', { path: '/login', pageTitle: 'Login - Cook Food Chef' });
 });
 
@@ -48,28 +54,36 @@ router.post('/login', async (req, res, next) => {
       password: req.body.password,
     };
 
-    const response = await fetch(process.env.URL + '/cookchef/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(details),
-    });
+    if(req.cookies['AUTH']){
+      console.log('Cookie exist:', req.cookies['AUTH'])
+      details.token = req.cookies['AUTH']
+    }
+
+    // const response = await fetch(process.env.URL + '/cookchef/v1/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(details),
+    // });
     
     console.log(details)
     console.log(JSON.stringify(details))
 
-  //   const response = await axiosInstance.post(process.env.URL+'/cookchef/v1/login',
-  //     JSON.stringify(details)
-  //   , {
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }
-  // )
+    const response = await axiosInstance.post(process.env.URL+'cookchef/v1/login',
+      JSON.stringify(details)
+    , {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
 
 
     if (response.status === 200) {
+
+      saveToken(response.data.data.token, res)
+
       // If Successful send the AI assistant page
       res.render('chef_page', {
         path: '/chef_page',

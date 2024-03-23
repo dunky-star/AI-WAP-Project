@@ -3,9 +3,17 @@ const path = require('path');
 const loginRegisterRoutes = require('./routes/login-register-route');
 const app = express();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 
 
+// url encoding
+app.use(express.urlencoded({ extended: false }));
+
+// body parser
+app.use(express.json());
+
+app.use(cookieParser());
 
 const dotenv = require('dotenv');
 

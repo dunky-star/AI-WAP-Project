@@ -1,15 +1,14 @@
-const Cookies = require('js-cookie')
 
-const saveToken = (token) => {
+const saveToken = (token, res) => {
     // localStorage.setItem('token', token);
-    Cookies.set('token', token)
+  
+    res.cookie('AUTH',token,{
+      domain: 'localhost',
+      path:'/'
+  })
 }
 
-const getToken = () => {
-    return Cookies.get('token')
-}
 
 module.exports = {
-    saveToken,
-    getToken
+    saveToken
 }
