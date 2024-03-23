@@ -4,6 +4,9 @@ const router = require('./router');
 const app = express();
 const cors = require('cors');
 
+
+const dotenv = require('dotenv');
+
 const PORT = 4000;
 
 // cors middleware
@@ -12,6 +15,8 @@ app.use(cors());
 app.listen(PORT, () => {
   console.log(`server is running on PORT ${PORT}`);
 });
+
+dotenv.config();
 
 //body parser
 router.use(express.json());

@@ -3,9 +3,14 @@ const path = require('path');
 const router = express.Router();
 const axios = require('axios');
 
+const axiosInstance = require('./services/axios');
+const isloggedInAlready = require('./middlewares/authentication');
+
 //body parser
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
+
+const baseURI = process.env.URL || 'http://localhost:3000/';
 
 //End Points
 
@@ -17,7 +22,7 @@ router.get('/home', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', isloggedInAlready, (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
@@ -45,15 +50,31 @@ router.post('/login', async (req, res, next) => {
       password: req.body.password,
     };
 
-    const response = await fetch('http://localhost:3000/cookchef/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(details),
-    });
+    // const response = await fetch('http://localhost:3000/cookchef/v1/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(details),
+    // });
 
-    if (response.ok) {
+
+        console.log(details)
+        console.log(JSON.stringify(details))
+
+        const response = await axiosInstance.post(baseURI+'cookchef/v1/login',
+          JSON.stringify(details)
+        , {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+
+      console.log(response)
+
+
+    if (response.status === 200) {
       // If Successful send the landing page
       res.sendFile(path.join(__dirname, 'chef_page.html'));
     } else {
@@ -61,9 +82,10 @@ router.post('/login', async (req, res, next) => {
       res.sendFile(path.join(__dirname, 'error.html'));
     }
 
-    console.log(await response.json());
+    console.log(response);
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
   } catch (error) {
+    console.error(error)
     console.error('Error forwarding request to backend:', error.message);
     res.status(500).sendFile(path.join(__dirname, 'error.html'));
   }
@@ -107,16 +129,13 @@ router.post('/signup', async (req, res, next) => {
       body: JSON.stringify(details),
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       // If Successful send the landing page
       res.sendFile(path.join(__dirname, 'login.html'));
     } else {
       // If there was an error in the request
       res.sendFile(path.join(__dirname, 'error.html'));
     }
-
-    const responseData = await response.json();
-    console.log(responseData);
 
     //res.sendFile(path.join(__dirname, 'chef_page.html'));
   } catch (error) {
