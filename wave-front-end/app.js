@@ -13,9 +13,6 @@ app.set('views', 'views');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// cors middleware
-app.use(cors());
-
 // Static files in public directory- css & JavaScript
 app.use(express.static('public'));
 
