@@ -5,16 +5,9 @@ const cookChefRoutes = require('./routes/cookChefRouter');
 const userRoutes = require('./routes/userRouter');
 const { connect } = require('./db/db');
 const globalErrHandler = require('./other-errors/globalErrHandler');
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGO_URI;
-const store = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: 'sessions',
-});
 
 // Setting static folder for handling static resources.
 app.use(express.static('public'));
@@ -25,15 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // Middleware to handle CORS policy
 app.use(cors());
-// Sessions
-app.use(
-  session({
-    secret: 'my cool app 2024',
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-  })
-);
 
 // Routes
 app.use(userRoutes);
