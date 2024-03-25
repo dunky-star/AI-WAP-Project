@@ -1,6 +1,7 @@
 const express = require('express');
-const path = require('path');
-const loginRegisterRoutes = require('./routes/login-register-route');
+const homeRoutes = require('./routes/home-route');
+const loginRoutes = require('./routes/login-route');
+const registerRoutes = require('./routes/register-route');
 const app = express();
 const cors = require('cors');
 
@@ -17,7 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 // Custom routes
-app.use(loginRegisterRoutes);
+app.use(homeRoutes);
+app.use(registerRoutes);
+app.use(loginRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on PORT ${PORT}`);
