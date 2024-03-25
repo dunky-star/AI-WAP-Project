@@ -5,38 +5,36 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  let details = {
-    email: req.body.email,
-    password: req.body.password,
+  const { email, password } = req.body;
+
+  const loginDetails = {
+    email: email,
+    password: password,
   };
 
   axios
-    .post(process.env.URL + '/cookchef/v1/login', details, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    .post(process.env.URL + '/cookchef/v1/login', loginDetails)
     .then(response => {
       if (response.status === 200) {
-        // If Successful send the AI assistant page
         res.render('chef_page', {
           path: '/chef_page',
-          pageTitle: 'Reviews - Cook Food Chef',
+          pageTitle: 'Chef Page - Cook Food Chef',
+          message: 'Login successful! Welcome to the Chef Page.',
         });
       } else {
-        // If there was an error in the request
         res.render('error', {
           path: '/error',
           pageTitle: 'Error - Cook Food Chef',
+          errorMessage: 'Login failed. Invalid credentials.',
         });
       }
-      console.log(response.data);
     })
     .catch(error => {
-      console.error('Error forwarding request to backend:', error.message);
-      res.status(500).render('error', {
+      console.error('Error during login:', error.message);
+      res.render('error', {
         path: '/error',
         pageTitle: 'Error - Cook Food Chef',
+        errorMessage: 'Login failed. Please try again later.',
       });
     });
 };

@@ -5,41 +5,38 @@ exports.getRegister = (req, res, next) => {
 };
 
 exports.postRegister = (req, res, next) => {
-  let details = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
+  const { firstName, lastName, email, password } = req.body;
+
+  const userDetails = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
   };
 
   axios
-    .post(process.env.URL + '/cookchef/v1/register', details, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    .post(process.env.URL + '/cookchef/v1/register', userDetails)
     .then(response => {
       if (response.status === 200) {
-        // If Successful send the landing page
         res.render('login', {
           path: '/login',
-          pageTitle: 'Login - Register - Cook Food Chef',
+          pageTitle: 'Login - Cook Food Chef',
+          message: 'Registration successful! Please login.',
         });
       } else {
-        // If there was an error in the request
-        res.status(500).render('error', {
+        res.render('error', {
           path: '/error',
           pageTitle: 'Error - Cook Food Chef',
+          errorMessage: 'Registration failed. Please try again.',
         });
       }
-
-      console.log(response.data);
     })
     .catch(error => {
-      console.error('Error forwarding request to backend:', error.message);
-      res.status(500).render('error', {
+      console.error('Error during registration:', error.message);
+      res.render('error', {
         path: '/error',
         pageTitle: 'Error - Cook Food Chef',
+        errorMessage: 'Registration failed. Please try again later.',
       });
     });
 };

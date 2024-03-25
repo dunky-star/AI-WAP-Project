@@ -22,7 +22,7 @@ exports.userRegistration = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    res.status(201).json({
+    res.status(200).json({
       status: 'success',
       data: user,
     });
@@ -51,7 +51,7 @@ exports.userLogin = async (req, res, next) => {
       }
     }
 
-    res.status(201).json({
+    res.status(200).json({
       status: 'success',
       data: {
         firstName: userFound.firstName,
