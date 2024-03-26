@@ -4,11 +4,22 @@ const loginRoutes = require('./routes/login-route');
 const registerRoutes = require('./routes/register-route');
 const app = express();
 const cors = require('cors');
+let session = require('express-session');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+// Use miidleware to create Express Sessions
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 //body parser
 app.use(express.json());

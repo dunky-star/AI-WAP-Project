@@ -58,6 +58,7 @@ exports.userLogin = async (req, res, next) => {
         lastName: userFound.lastName,
         email: userFound.email,
         isAdmin: userFound.isAdmin,
+        logged: true,
         token: generateToken(userFound._id),
       },
     });

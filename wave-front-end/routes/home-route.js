@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-require('dotenv').config();
+let session = require('express-session');
 
 //End Points
 
@@ -33,6 +32,11 @@ router.get('/reviews', (req, res) => {
     path: '/reviews',
     pageTitle: 'Reviews - Cook Food Chef',
   });
+});
+
+router.get('/logout', (req, res, next) => {
+  req.session.destroy(null);
+  res.render('login', { path: '/login', pageTitle: 'Login - Cook Food Chef' });
 });
 
 module.exports = router;
